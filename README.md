@@ -1,1 +1,1 @@
-# rust-food-manager
+# food-manager-api
