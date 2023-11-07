@@ -1,19 +1,18 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Controller, Get, Param, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { IController } from "../types";
-import { CreateIngredientDto } from "@services/dtos/ingredients";
-import { CreateIngredientCommand } from "@services/commands/ingredients";
-import { CreateIngredientService } from "@services/ingredients";
+import { GetAllIngredientsCommand } from "@services/commands/ingredients";
+import { GetAllIngredientsService } from "@services/ingredients";
 
 @Controller()
 @ApiTags("Ingredients")
-export class CreateIngredientController implements IController {
-    public constructor(private readonly createIngredientService: CreateIngredientService) {}
+export class GetAllIngredientsController implements IController {
+    public constructor(private readonly getAllIngredientsService: GetAllIngredientsService) {}
 
-    @Post()
-    public async handle(@Body() dto: CreateIngredientDto): Promise<unknown> {
-        const command = new CreateIngredientCommand(dto.name, dto.kitchenId);
+    @Get(":kitchenId")
+    public async handle(@Param("kitchenId") kitchenId: string): Promise<unknown> {
+        const command = new GetAllIngredientsCommand(kitchenId);
 
-        return this.createIngredientService.createIngredient(command);
+        return this.getAllIngredientsService.getAll(command);
     }
 }
