@@ -1,4 +1,5 @@
-import { DeleteResult, ObjectId } from "mongodb";
+import { UpdateResult, UpdateStatus } from "@domain/repo";
+import { DeleteResult, ObjectId, ModifyResult as MongoUpdateResult } from "mongodb";
 import { MongoRepository, ObjectLiteral } from "typeorm";
 
 export class CrudRepository<T extends ObjectLiteral> {
@@ -8,8 +9,18 @@ export class CrudRepository<T extends ObjectLiteral> {
         return this.repository.save(entity);
     }
 
-    public async update(id: string, entity: T): Promise<T> {
-        return this.repository.findOneAndUpdate({ _id: new ObjectId(id) }, entity) as Promise<T>;
+    public async update(id: string, entity: T): Promise<UpdateResult<T>> {
+        return this.repository
+            .findOneAndUpdate({ _id: new ObjectId(id) }, { $set: { ...entity } })
+            .then((res: MongoUpdateResult): UpdateResult<T> => {
+                return {
+                    entity: {
+                        _id: id,
+                        ...entity,
+                    },
+                    status: res.ok ? UpdateStatus.Updated : UpdateStatus.NotModified,
+                };
+            });
     }
 
     public async delete(entity: T): Promise<T | null> {

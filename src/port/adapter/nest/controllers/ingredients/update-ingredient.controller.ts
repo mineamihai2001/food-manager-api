@@ -14,6 +14,6 @@ export class UpdateIngredientController implements IController {
     public async handle(@Body() dto: UpdateIngredientDto): Promise<unknown> {
         const command = new UpdateIngredientCommand(dto.id, dto.name, dto.kitchenId);
 
-        return this.updateIngredientService.updateIngredient(command);
+        return this.updateIngredientService.updateIngredient(command).then((res) => res.entity);
     }
 }

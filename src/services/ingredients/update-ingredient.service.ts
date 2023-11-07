@@ -1,4 +1,5 @@
 import { Ingredient } from "@domain/entities";
+import { UpdateResult } from "@domain/repo";
 import { Injectable } from "@nestjs/common";
 import { IngredientsRepository } from "@port/adapter/repositories";
 import { UpdateIngredientCommand } from "@services/commands/ingredients";
@@ -7,7 +8,7 @@ import { UpdateIngredientCommand } from "@services/commands/ingredients";
 export class UpdateIngredientService {
     public constructor(private readonly repository: IngredientsRepository) {}
 
-    public updateIngredient(command: UpdateIngredientCommand): Promise<Ingredient> {
+    public updateIngredient(command: UpdateIngredientCommand): Promise<UpdateResult<Ingredient>> {
         return this.repository.update(command.getId(), new Ingredient(command.getName(), command.getKitchenId()));
     }
 }

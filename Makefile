@@ -1,6 +1,9 @@
 docker_cmd_api := docker-compose run --build --rm -it api
 
 run:
+	docker-compose up
+
+run-build:
 	docker-compose up --build
 
 install:
