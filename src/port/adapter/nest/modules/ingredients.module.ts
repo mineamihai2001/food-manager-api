@@ -26,8 +26,8 @@ import {
         IngredientsRepository,
     ],
     controllers: [
-        CreateIngredientController,
         GetAllIngredientsController,
+        CreateIngredientController,
         UpdateIngredientController,
         RemoveIngredientController,
     ],

@@ -20,4 +20,14 @@ export class DishesRepository extends CrudRepository<Dish> {
             },
         });
     }
+
+    public async getByIngredientIds(ingredientIds: string[]): Promise<Dish[]> {
+        return this.dishesRepository.find({
+            where: {
+                ingredients: {
+                    $in: ingredientIds.map((i) => new ObjectId(i)),
+                },
+            },
+        });
+    }
 }
