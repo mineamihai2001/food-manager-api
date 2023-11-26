@@ -1,6 +1,13 @@
 import { ObjectId } from "mongodb";
 import { Column, Entity, ObjectIdColumn } from "typeorm";
 
+export type RecipeStep = string;
+
+export type DishDuration = {
+    min: number;
+    max: number;
+};
+
 @Entity("dishes")
 export class Dish {
     @ObjectIdColumn()
@@ -22,15 +29,19 @@ export class Dish {
     private ingredientIds: ObjectId[];
 
     @Column()
-    private recipe: string;
+    private recipe: RecipeStep[];
+
+    @Column()
+    private duration: DishDuration;
 
     public constructor(
         kitchenId: string,
         name: string,
         description: string,
         coverPhoto: string,
-        recipe: string,
+        recipe: RecipeStep[],
         ingredientIds: string[],
+        duration: DishDuration,
     ) {
         this.kitchenId = new ObjectId(kitchenId);
         this.name = name;
@@ -38,6 +49,7 @@ export class Dish {
         this.coverPhoto = coverPhoto;
         this.recipe = recipe;
         this.ingredientIds = ingredientIds?.map((i) => new ObjectId(i));
+        this.duration = duration;
     }
 
     public getId(): string {
@@ -64,7 +76,11 @@ export class Dish {
         return this.ingredientIds.map((i) => i.toString());
     }
 
-    public getRecipe(): string {
+    public getRecipe(): RecipeStep[] {
         return this.recipe;
+    }
+
+    public getDuration(): DishDuration {
+        return this.duration;
     }
 }

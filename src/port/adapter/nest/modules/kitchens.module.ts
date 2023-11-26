@@ -7,6 +7,6 @@ import { CreateKitchenService, GetAllKitchensService } from "@services/kitchens"
 @Module({
     imports: [MongoModule],
     providers: [...kitchensProviders, KitchensRepository, CreateKitchenService, GetAllKitchensService],
-    controllers: [CreateKitchenController, GetAllKitchensController],
+    controllers: [GetAllKitchensController, CreateKitchenController],
 })
 export class KitchensModule {}

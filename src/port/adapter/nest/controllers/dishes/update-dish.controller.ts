@@ -13,15 +13,16 @@ export class UpdateDishController implements IController {
     @Put()
     public async handle(@Body() dto: UpdateDishDto): Promise<unknown> {
         const command = new UpdateDishCommand(
-            dto.id,
+            dto._id,
             dto.name,
             dto.kitchenId,
             dto.description,
             dto.coverPhoto,
             dto.recipe,
             dto.ingredientIds,
+            dto.duration,
         );
 
-        return this.updateDishesService.updateDish(command).then((res) => res.entity);
+        return this.updateDishesService.updateDish(command).then((res) => res);
     }
 }

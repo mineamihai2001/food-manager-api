@@ -16,6 +16,7 @@ export class CreateDishService {
                 command.getCoverPhoto(),
                 command.getRecipe(),
                 command.getIngredientIds(),
+                command.getDuration(),
             ),
         );
     }

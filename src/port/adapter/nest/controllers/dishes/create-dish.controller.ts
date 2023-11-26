@@ -19,6 +19,7 @@ export class CreateDishController implements IController {
             dto.coverPhoto,
             dto.recipe,
             dto.ingredientIds,
+            dto.duration,
         );
 
         return this.createDishService.createDish(command);

@@ -1,3 +1,5 @@
+import { DishDuration, RecipeStep } from "@domain/entities";
+
 export class UpdateDishCommand {
     public constructor(
         private readonly id: string,
@@ -5,8 +7,9 @@ export class UpdateDishCommand {
         private readonly kitchenId: string,
         private readonly description: string,
         private readonly coverPhoto: string,
-        private readonly recipe: string,
+        private readonly recipe: RecipeStep[],
         private readonly ingredientIds: string[],
+        private readonly duration: DishDuration,
     ) {}
 
     public getId(): string {
@@ -29,11 +32,15 @@ export class UpdateDishCommand {
         return this.coverPhoto;
     }
 
-    public getRecipe(): string {
+    public getRecipe(): RecipeStep[] {
         return this.recipe;
     }
 
     public getIngredientIds(): string[] {
         return this.ingredientIds;
+    }
+
+    public getDuration(): DishDuration {
+        return this.duration;
     }
 }

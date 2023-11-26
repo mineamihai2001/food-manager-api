@@ -18,6 +18,7 @@ export class UpdateDishService {
                 command.getCoverPhoto(),
                 command.getRecipe(),
                 command.getIngredientIds(),
+                command.getDuration(),
             ),
         );
     }

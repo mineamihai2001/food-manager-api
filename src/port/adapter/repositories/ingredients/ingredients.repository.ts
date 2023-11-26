@@ -20,4 +20,12 @@ export class IngredientsRepository extends CrudRepository<Ingredient> {
             },
         });
     }
+
+    public getByName(name: string): Promise<Ingredient[]> {
+        return this.ingredientsRepository.find({
+            where: {
+                name: name,
+            },
+        });
+    }
 }

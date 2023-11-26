@@ -1,8 +1,9 @@
+import { DishDuration, RecipeStep } from "@domain/entities";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateDishDto {
     @ApiProperty()
-    id: string;
+    _id: string;
 
     @ApiProperty()
     kitchenId: string;
@@ -20,5 +21,8 @@ export class UpdateDishDto {
     ingredientIds: string[];
 
     @ApiProperty()
-    recipe: string;
+    recipe: RecipeStep[];
+
+    @ApiProperty()
+    duration: DishDuration;
 }
